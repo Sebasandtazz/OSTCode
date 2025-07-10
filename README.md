@@ -3,3 +3,6 @@ This is the code (and maybe the board files) for the SmartTrigPi Project. I have
 
 In addition to this code, I have included the pymeasure compatible library created smarttrigpi.py. This would have to be added
 to the pymeasure library.
+
+For anyone that is not me reading this... There are some clear issues with the main file running on the server side, and I know this, but the application is robust albeit with
+tech debt, so I am leaving it be.
