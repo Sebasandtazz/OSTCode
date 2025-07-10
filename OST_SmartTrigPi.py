@@ -257,7 +257,8 @@ def setVolt(chip, levelSelect, voltMessage, conn = None):
         conn.sendall(f'Volt Set at {voltMessage}'.encode())
     elif conn:
         conn.sendall(f'Invalid Voltage -> Logic set to 5V'.encode())
-
+        lgpio.gpio_write(chip, levelSelect, 0)
+        
 if __name__ == "__main__":
     main()
 

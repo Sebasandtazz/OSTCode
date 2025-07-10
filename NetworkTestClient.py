@@ -11,7 +11,7 @@ def main():
     print(trigPi.amplitude(5).decode())
     print(trigPi.pulseWidth(0.000001).decode())
     time.sleep(.5)
-    for i in range(2000):
+    for i in range(1):
         trigPi.trigger1()
         trigPi.trigger2()
 
