@@ -1,19 +1,19 @@
-from smarttrigpi import SmartTrigPi 
+from pymeasure.instruments.pi import smarttrigpi 
 import time
 
 def main():
     HOST = '146.136.47.129'
     PORT = 50007 #investigate if this really is the right port
-    trigPi = SmartTrigPi(HOST, PORT)
+    trigPi = smarttrigpi.SmartTrigPi(HOST, PORT)
 
     
     ID = trigPi.identify().decode()
-    print(trigPi.amplitude(5).decode())
-    print(trigPi.pulseWidth(0.000001).decode())
+    trigPi.amplitude = 5
+    trigPi.pulseWidth = 0.000001
     time.sleep(.5)
-    for i in range(1):
-        trigPi.trigger1()
-        trigPi.trigger2()
+    for i in range(10):
+        trigPi.trigger()
+       # trigPi.trigger2()
 
     print(ID)
     
