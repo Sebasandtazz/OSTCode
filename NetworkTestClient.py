@@ -1,4 +1,4 @@
-from pymeasure.instruments.pi import smarttrigpi 
+import smarttrigpi 
 import time
 
 def main():
@@ -6,16 +6,20 @@ def main():
     PORT = 50007 #investigate if this really is the right port
     trigPi = smarttrigpi.SmartTrigPi(HOST, PORT)
 
-    
-    ID = trigPi.identify().decode()
+    trigPi.burst_state = True
+    trigPi.burst_ncycles = 10
+    trigPi.output_load = 'INF'
+    trigPi.shape = 'PULS'
     trigPi.amplitude = 5
-    trigPi.pulseWidth = 0.000001
+    trigPi.pulse_width = 2e-3
+    trigPi.offset = 2.5
+    trigPi.frequency = 10
+    trigPi.output = 'on'
     time.sleep(.5)
-    for i in range(10):
-        trigPi.trigger()
-       # trigPi.trigger2()
+    
+    trigPi.trigger()
+    # trigPi.trigger2()
 
-    print(ID)
     
 if __name__ == "__main__":
     main()
