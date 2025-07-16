@@ -62,6 +62,16 @@ class SmartTrigPi():
         for i in range(self.burst_ncycles):
             self.s = networkSetup(self.host, self.port)
             self.s.sendall(self.TRIG_COMMAND1.encode())
+            self.s.sendall(self.TRIG_COMMAND2.encode())
+            time.sleep(delay)
+        return self.s.recv(512)
+    
+    def trigger1(self):
+        self.setAmplitude()
+        delay = self.setPulseWidth()
+        for i in range(self.burst_ncycles):
+            self.s = networkSetup(self.host, self.port)
+            self.s.sendall(self.TRIG_COMMAND1.encode())
             time.sleep(delay)
         return self.s.recv(512)
     

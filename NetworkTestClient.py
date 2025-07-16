@@ -18,13 +18,13 @@ def main():
     trigPi.amplitude_unit = 'VPP'
     trigPi.offset = 2.5
     trigPi.burst_mode = 'TRIG'
-    trigPi.burst_ncycles = 10    
+    trigPi.burst_ncycles = 1   
     trigPi.trigger_source = "BUS"
     trigPi.burst_state = True
     trigPi.output = True
     
-    #trigPi.trigger()
-    trigPi.trigger2()
+    trigPi.trigger()
+    #trigPi.trigger2()
     
 if __name__ == "__main__":
     main()
