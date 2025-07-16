@@ -3,8 +3,8 @@ import time
 
 class SmartTrigPi():
     CHECK_COMMAND = '*IDN?\n'
-    TRIG_COMMAND1 = '*TRG 4\n'
-    TRIG_COMMAND2 = '*TRG 17\n'
+    TRIG_COMMAND1 = '*TRG 17\n'
+    TRIG_COMMAND2 = '*TRG 4\n'
 
 
     def __init__(self, HOST, PORT):
