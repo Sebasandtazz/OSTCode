@@ -235,8 +235,6 @@ def trigger(triggerLength, chip, channel, heartBeatChannel, disp, conn = None):
     
     time.sleep(triggerLength)
 
-    if conn:
-        conn.sendall(b'Triggering')
     lgpio.tx_pwm(chip, heartBeatChannel, 1.5, 70,0,0)
     lgpio.gpio_write(chip, channel, 0)
 
@@ -244,20 +242,13 @@ def trigger(triggerLength, chip, channel, heartBeatChannel, disp, conn = None):
 
 def setPulse(triggerLength, newWidth, conn = None):
     triggerLength[0] = newWidth
-    if conn:
-        conn.sendall(f'Pulse Set at {newWidth}'.encode())
-
+    
 def setVolt(chip, levelSelect, voltMessage, conn = None):
     if conn and voltMessage == 3.3:
         lgpio.gpio_write(chip, levelSelect, 1)
-        conn.sendall(f'Volt Set at {voltMessage}'.encode())
-
     elif conn and voltMessage == 5:
         lgpio.gpio_write(chip, levelSelect, 0)
-        conn.sendall(f'Volt Set at {voltMessage}'.encode())
-    elif conn:
-        conn.sendall(f'Invalid Voltage -> Logic set to 5V'.encode())
-        lgpio.gpio_write(chip, levelSelect, 0)
+    
         
 if __name__ == "__main__":
     main()
