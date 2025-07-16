@@ -18,8 +18,8 @@ def main():
     IDNRESPONSE = 'OST CUSTOM TECHNOLOGY,SMARTTRIG,000001,0.1'
 
     
-    trigChannel1 = 4
-    trigChannel2 = 17
+    trigChannel1 = 17
+    trigChannel2 = 4
     heartBeatChannel = 18
     levelSelect = 26 #LOW = 5Vout HIGH = 3V3OUT
     transmitSelect = 25 #LOW = HiZ HIGH = Tranmission
@@ -229,14 +229,24 @@ def trigger(triggerLength, chip, channel, heartBeatChannel, disp, conn = None):
     draw.text((x, y), str(triggerLength), font=font, fill="#FFFFFF")
 
     disp.image(image)
-    
-    lgpio.gpio_write(chip, channel, 1)
-    lgpio.tx_pwm(chip, heartBeatChannel, 12, 20,0,0)
-    
-    time.sleep(triggerLength)
+    if channel == 'ALL':
+        lgpio.gpio_write(chip, 17, 1)
+        lgpio.gpio_write(chip, 4, 1)
+        lgpio.tx_pwm(chip, heartBeatChannel, 12, 20,0,0)
+        
+        time.sleep(triggerLength)
 
-    lgpio.tx_pwm(chip, heartBeatChannel, 1.5, 70,0,0)
-    lgpio.gpio_write(chip, channel, 0)
+        lgpio.tx_pwm(chip, heartBeatChannel, 1.5, 70,0,0)
+        lgpio.gpio_write(chip, 17, 0)
+        lgpio.gpio_write(chip, 4, 0)
+    else:
+        lgpio.gpio_write(chip, channel, 1)
+        lgpio.tx_pwm(chip, heartBeatChannel, 12, 20,0,0)
+        
+        time.sleep(triggerLength)
+
+        lgpio.tx_pwm(chip, heartBeatChannel, 1.5, 70,0,0)
+        lgpio.gpio_write(chip, channel, 0)
 
     return triggerLength
 

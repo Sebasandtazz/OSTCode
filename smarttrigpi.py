@@ -5,6 +5,7 @@ class SmartTrigPi():
     CHECK_COMMAND = '*IDN?\n'
     TRIG_COMMAND1 = '*TRG 17\n'
     TRIG_COMMAND2 = '*TRG 4\n'
+    TRIG_COMMANDA = '*TRG ALL\n'
 
 
     def __init__(self, HOST, PORT):
@@ -61,8 +62,7 @@ class SmartTrigPi():
         delay = self.setPulseWidth()
         for i in range(self.burst_ncycles):
             self.s = networkSetup(self.host, self.port)
-            self.s.sendall(self.TRIG_COMMAND1.encode())
-            self.s.sendall(self.TRIG_COMMAND2.encode())
+            self.s.sendall(self.TRIG_COMMANDA.encode())
             time.sleep(delay)
         return self.s.recv(512)
     

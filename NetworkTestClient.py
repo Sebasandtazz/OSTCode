@@ -13,7 +13,7 @@ def main():
     trigPi.square_period = 0.5
     trigPi.square_dutycycle = 50
 
-    trigPi.amplitude = 3.3
+    trigPi.amplitude = 5
     trigPi.frequency = 1
     trigPi.amplitude_unit = 'VPP'
     trigPi.offset = 2.5
@@ -23,9 +23,10 @@ def main():
     trigPi.burst_state = True
     trigPi.output = True
     
-    trigPi.trigger()
-    #trigPi.trigger2()
-    
+    while True:
+        trigPi.trigger()
+        #trigPi.trigger1()
+        time.sleep(1.5)
 if __name__ == "__main__":
     main()
 
