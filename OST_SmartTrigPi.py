@@ -194,10 +194,6 @@ def remoteCtrl(triggerLength, chip, trigChannel, levelSelect, conn, addr, heartB
             "VOLT": lambda *args: setVolt(chip=chip, levelSelect=levelSelect, voltMessage=args[0], conn=conn)
         })
         parser.execute(cmd)
-    image = imgResize("/home/raspberry/Desktop/bees.jpg", width=240, height=240)
-    draw = ImageDraw.Draw(image)    
-    draw.text((0, 0), "READY", font=font, fill="#FF0000")
-    disp.image(image)
     return
 
 
@@ -209,7 +205,8 @@ def identify(conn, IDNRESPONSE):
 
 
 def trigger(triggerLength, chip, channel, heartBeatChannel, disp, conn = None): 
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 60)
+    levelSelect = 26
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 20)
 
     image = Image.new("RGB", (240, 240))
     draw = ImageDraw.Draw(image)
@@ -218,15 +215,20 @@ def trigger(triggerLength, chip, channel, heartBeatChannel, disp, conn = None):
     padding = -2
     x = 0
     y = padding
-    draw.text((x, y), "Trigger", font=font, fill="#FFFFFF")
+    draw.text((x, y), "Trigger Length", font=font, fill="#FFFFFF")
     bbox = font.getbbox("Trigger Length")
     height = bbox[3] - bbox[1]
     x = 0
     y += height
-    draw.text((x, y), "Length:", font=font, fill="#FFFFFF")
+    draw.text((x, y), "Voltage Level:", font=font, fill="#FFFFFF")
     x = 0
     y += height
-    draw.text((x, y), str(triggerLength), font=font, fill="#FFFFFF")
+    vInd = lgpio.gpio_read(chip, levelSelect)
+    if vInd:
+        voltageLevel = 3.3
+    else:
+        voltageLevel = 5
+    draw.text((x, y), str(voltageLevel), font=font, fill="#FFFFFF")
 
     disp.image(image)
     if channel == 'ALL':
