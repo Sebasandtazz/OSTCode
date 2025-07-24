@@ -10,8 +10,8 @@ def main():
     trigPi.reset()
     trigPi.output_load = 'INF'
     trigPi.shape = 'SQU'
-    trigPi.square_period = 0.5
-    trigPi.square_dutycycle = 50
+    trigPi.square_period = 0.25
+    trigPi.square_dutycycle = 70
 
     trigPi.amplitude = 5
     trigPi.frequency = 1
@@ -23,10 +23,12 @@ def main():
     trigPi.burst_state = True
     trigPi.output = True
     
-    while True:
+    trigPi.trigger()
+
+    '''while True:
         trigPi.trigger()
         #trigPi.trigger1()
-        time.sleep(1.5)
+        time.sleep(1.5)'''
 if __name__ == "__main__":
     main()
 

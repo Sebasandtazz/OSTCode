@@ -154,12 +154,12 @@ def imgResize(name, width, height):
 def setMode(type ,conn = None, addr = None, triggerLength = None, chip = None, button1 = None, button2 = None, trigChannel = None, 
             levelSelect = None, heartBeatChannel = None, draw = None, disp = None, IDNRESPONSE = None):
     if type == "local":
-        localCtrl(chip=chip, button1=button1, button2 = button2, heartBeatChannel=heartBeatChannel, trigChannel = trigChannel, disp=disp)
+        localCtrl(chip=chip, button1=button1, button2 = button2, heartBeatChannel=heartBeatChannel, disp=disp)
     elif type == "remote":
         remoteCtrl(conn=conn, addr=addr, triggerLength=triggerLength, chip=chip, trigChannel=trigChannel, draw=draw,
                    levelSelect=levelSelect, heartBeatChannel=heartBeatChannel, disp=disp, IDNRESPONSE=IDNRESPONSE)
 
-def localCtrl(chip, button1, button2, trigChannel, heartBeatChannel, disp):
+def localCtrl(chip, button1, button2, heartBeatChannel, disp):
     font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 60)
     while True:
         localToggle = lgpio.gpio_read(chip, button1)
@@ -172,7 +172,7 @@ def localCtrl(chip, button1, button2, trigChannel, heartBeatChannel, disp):
             time.sleep(.5)
             return
         if localTrig:
-            trigger(0.25, chip=chip, channel=trigChannel, heartBeatChannel=heartBeatChannel, disp=disp)
+            trigger(0.25, chip=chip, channel="ALL", heartBeatChannel=heartBeatChannel, disp=disp)
             time.sleep(1)
             image = imgResize("/home/raspberry/Desktop/bees.jpg", width=240, height=240)
             draw = ImageDraw.Draw(image)    
@@ -206,21 +206,26 @@ def identify(conn, IDNRESPONSE):
 
 def trigger(triggerLength, chip, channel, heartBeatChannel, disp, conn = None): 
     levelSelect = 26
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 20)
-
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 30)
     image = Image.new("RGB", (240, 240))
     draw = ImageDraw.Draw(image)
+    draw.rectangle((0, 0, 240, 240), outline=0, fill="#F80000")
+    disp.image(image)
     draw.rectangle((0, 0, 240, 240), outline=0, fill="#000000")
-    
     padding = -2
     x = 0
     y = padding
-    draw.text((x, y), "Trigger Length", font=font, fill="#FFFFFF")
-    bbox = font.getbbox("Trigger Length")
+    draw.text((x, y), "Trigger Length: ", font=font, fill="#F80000")
+    bbox = font.getbbox("Trigger Length: ")
     height = bbox[3] - bbox[1]
     x = 0
     y += height
-    draw.text((x, y), "Voltage Level:", font=font, fill="#FFFFFF")
+    draw.text((x, y), str(triggerLength), font=font, fill="#FFFFFF")
+    x = 0
+    y += height
+    
+    draw.text((x, y), "Voltage Level: ", font=font, fill="#FBFF00")
+    bbox = font.getbbox("Voltage Level: ")
     x = 0
     y += height
     vInd = lgpio.gpio_read(chip, levelSelect)
@@ -229,6 +234,23 @@ def trigger(triggerLength, chip, channel, heartBeatChannel, disp, conn = None):
     else:
         voltageLevel = 5
     draw.text((x, y), str(voltageLevel), font=font, fill="#FFFFFF")
+
+    x = 0
+    y += height
+
+    draw.text((x, y), "Channel Output: ", font=font, fill="#00FF2A")
+    bbox = font.getbbox("Channel Output: ")
+    
+    x = 0
+    y += height
+    if channel == 17:
+        channelInd = 1
+    elif channel == 4:
+        channelInd = 2
+    else:
+        channelInd = channel
+
+    draw.text((x, y), str(channelInd), font=font, fill="#FFFFFF")
 
     disp.image(image)
     if channel == 'ALL':
