@@ -7,7 +7,11 @@ to the pymeasure library.
 The following libraries are needed on the Pi, it's possible I will make a package to install all of these, but if not:
 
 lgpio -> 
+
 board -> 
+
 digitalio -> 
+
 adafruit_rgb_display.st7789 -> 
+
 PIL -> sudo apt install i think 
