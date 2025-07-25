@@ -23,13 +23,18 @@ sudo nano /etc/rc.local
 **Inside of the newly opened file**
 
 #!/bin/sh -e
-python3 /home/raspberry/Desktop/OST_SmartTrigPi.py > /home/raspberry/triglog.txt 2>&1 &
+python3 /home/raspberry/Desktop/OST_SmartTrigPi.py &
 exit 0
+
 
 **Ctrl + x, Y, and enter**
 
-sudo systemctl enable rc-local
-sudo systemctl start rc-local
+chmod +x /home/raspberry/Desktop/OST_SmartTrigPi.py
+raspberry@raspberrypi:~ $ sudo chmod +x /etc/rc.local
+
+**Reboot**
+
+sudo reboot
 
 **Check**
 
