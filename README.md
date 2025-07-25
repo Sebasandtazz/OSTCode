@@ -18,12 +18,19 @@ PIL -> sudo apt install python3-pil
 cp /mnt/usb/trig.jpg /mnt/usb/bees.jpg Desktop
 cp /mnt/usb/SCPIParser.py /mnt/usb/OST_SmartTrigPi.py Desktop
 sudo nano /etc/rc.local
+
+
 **Inside of the newly opened file**
+
 #!/bin/sh -e
 python3 /home/raspberry/Desktop/OST_SmartTrigPi.py > /home/raspberry/triglog.txt 2>&1 &
 exit 0
+
 **Ctrl + x, Y, and enter**
+
 sudo systemctl enable rc-local
 sudo systemctl start rc-local
+
 **Check**
+
 sudo systemctl status rc-local
