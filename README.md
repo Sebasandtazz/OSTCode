@@ -37,7 +37,9 @@ sudo nano /etc/rc.local
 **Inside of the newly opened file**
 
 #!/bin/sh -e
+
 python3 /home/raspberry/Desktop/OST_SmartTrigPi.py &
+
 exit 0
 
 
