@@ -1,15 +1,15 @@
 # OSTCode
-This is the code (and maybe the board files) for the SmartTrigPi Project. I have included the SCPI parser thanks to Chris Tan.
+## This is the code (and maybe the board files) for the SmartTrigPi Project. I have included the SCPI parser thanks to Chris Tan.
 
 In addition to this code, I have included the pymeasure compatible library created smarttrigpi.py. This would have to be added
-to the pymeasure library.
+to the pymeasure library, or otherwise run in the correct folder.
 
 In order to set up the pi, make sure the correct peripherals are on.
 Using
 sudo raspi-config -> interface options -> enable all of [SSH, i2c, and SPI]
 
 
-**The following libraries are needed on the Pi**, it's possible I will make a package to install all of these, but if not:
+## **The following libraries are needed on the Pi**, it's possible I will make a package to install all of these, but if not:
 
 lgpio -> sudo apt install python3-lgpio
 
