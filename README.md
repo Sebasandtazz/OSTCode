@@ -4,6 +4,11 @@ This is the code (and maybe the board files) for the SmartTrigPi Project. I have
 In addition to this code, I have included the pymeasure compatible library created smarttrigpi.py. This would have to be added
 to the pymeasure library.
 
+In order to set up the pi, make sure the correct peripherals are on.
+Using
+sudo raspi-config -> interface options -> enable all of [SSH, i2c, and SPI]
+
+
 **The following libraries are needed on the Pi**, it's possible I will make a package to install all of these, but if not:
 
 lgpio -> sudo apt install python3-lgpio
@@ -15,6 +20,11 @@ adafruit_rgb_display.st7789 -> sudo pip3 install --break-system-packages adafrui
 PIL -> sudo apt install python3-pil
 
 **Additionally**
+
+Mount a USB
+
+sudo mkdir /mnt/usb
+sudo mount /dev/sda1 /mnt/usb
 cp /mnt/usb/trig.jpg /mnt/usb/bees.jpg Desktop
 cp /mnt/usb/SCPIParser.py /mnt/usb/OST_SmartTrigPi.py Desktop
 sudo nano /etc/rc.local
@@ -30,7 +40,7 @@ exit 0
 **Ctrl + x, Y, and enter**
 
 chmod +x /home/raspberry/Desktop/OST_SmartTrigPi.py
-raspberry@raspberrypi:~ $ sudo chmod +x /etc/rc.local
+sudo chmod +x /etc/rc.local
 
 **Reboot**
 
