@@ -24,9 +24,13 @@ PIL -> sudo apt install python3-pil
 Mount a USB
 
 sudo mkdir /mnt/usb
+
 sudo mount /dev/sda1 /mnt/usb
+
 cp /mnt/usb/trig.jpg /mnt/usb/bees.jpg Desktop
+
 cp /mnt/usb/SCPIParser.py /mnt/usb/OST_SmartTrigPi.py Desktop
+
 sudo nano /etc/rc.local
 
 
