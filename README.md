@@ -58,6 +58,7 @@ exit 0
 **Ctrl + x, Y, and enter**
 
 chmod +x /home/raspberry/Desktop/OST_SmartTrigPi.py
+
 sudo chmod +x /etc/rc.local
 
 **Reboot**
